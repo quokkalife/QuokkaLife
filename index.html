@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<title>QuokkaLife - Página Inicial</title>
+<link rel="stylesheet" href="assets/css/style.css">
+
+<!-- SCRIPT DE IDIOMAS -->
+<script src="assets/js/idiomas.js" defer></script>
+</head>
+
+<body>
+
+<!-- BOTÃO DE IDIOMA -->
+<div class="lang-switch">
+<button onclick="setLang('pt')">Português</button> |
+<button onclick="setLang('en')">English</button>
+</div>
+
+<!-- CABEÇALHO -->
+<header>
+<h1 data-i18n="home_title">Bem-vindo ao QuokkaLife</h1>
+
+<nav>
+<a href="index.html" data-i18n="menu_home">Início</a>
+<a href="video.html" data-i18n="menu_videos">Vídeos</a>
+<a href="#" data-i18n="menu_downloads">Downloads</a>
+<a href="#" data-i18n="menu_conteudos">Conteúdos</a>
+<a href="admin.html" class="admin-link" data-i18n="menu_admin">Administrador</a>
+</nav>
+</header>
+
+<!-- BARRA DE PESQUISA -->
+<div class="search-box">
+<input type="text" placeholder="Pesquisar..." data-i18n-ph="search_placeholder">
+</div>
+
+<!-- CONTEÚDO PRINCIPAL -->
+<section class="conteudo">
+<h2 data-i18n="section_latest">Últimos conteúdos</h2>
+<p data-i18n="section_desc">
+            Explore vídeos, artigos, downloads e muito mais.
+</p>
+</section>
+
+<!-- RODAPÉ -->
+<footer>
+<p>&copy; 2025 QuokkaLife. Todos os direitos reservados.</p>
+</footer>
+
+</body>
+</html>

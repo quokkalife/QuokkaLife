@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<title>Painel do Administrador - QuokkaLife</title>
+
+<link rel="stylesheet" href="assets/css/style.css">
+<script src="assets/js/idiomas.js" defer></script>
+<script src="assets/js/ganhos.js" defer></script>
+<script src="assets/js/admin_protect.js" defer></script>
+
+<style>
+        .card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px #999;
+        }
+        .btn {
+            background: #008a3b;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        input, select {
+            padding: 10px;
+            width: 300px;
+            margin: 6px 0;
+        }
+        .pedido {
+            background: #f4f4f4;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+        }
+        .paid { background: #d5ffe0; }
+        .pending { background: #fff7c7; }
+        .reject { background: #ffd1d1; }
+</style>
+</head>
+
+<body>
+
+<!-- BOTÃO DE IDIOMA -->
+<div class="lang-switch">
+<button onclick="setLang('pt')">Português</button> |
+<button onclick="setLang('en')">English</button>
+</div>
+
+<h1 data-i18n="admin_panel">Painel do Administrador</h1>
+
+<!-- SALDO -->
+<div class="card">
+<h2 data-i18n="total_balance">Saldo Total</h2>
+<p><b>USD:</b> $<span id="saldoTotal">0</span></p>
+
+<label data-i18n="convert_to">Converter para:</label>
+<select id="currencySelect">
+<option value="USD">USD</option>
+<option value="MZN">Metical</option>
+<option value="ZAR">Rand</option>
+<option value="BRL">Real</option>
+<option value="GBP">Libra</option>
+</select>
+
+<p><b data-i18n="converted_amount">Convertido:</b>
+<span id="valorConvertido">0</span>
+</p>
+</div>
+
+<!-- SOLICITAR LEVANTAMENTO -->
+<div class="card">
+<h2 data-i18n="withdraw_title">Solicitar Levantamento</h2>
+
+<input id="nome" placeholder="Nome do beneficiário">
+<input id="numero" placeholder="Número M-Pesa / e-Mola / Banco">
+
+<select id="operadora">
+<option>M-Pesa</option>
+<option>e-Mola</option>
+<option>Mkesh</option>
+<option>Banco</option>
+</select>
+
+<input id="valor" type="number" placeholder="Valor a levantar">
+
+<select id="moedaValor">
+<option value="USD">USD</option>
+<option value="MZN">MZN</option>
+<option value="ZAR">ZAR</option>
+<option value="BRL">BRL</option>
+</select>
+
+<button class="btn" onclick="criarPedido()" data-i18n="withdraw_btn">
+            Registrar Pedido
+</button>
+
+<p id="msg"></p>
+</div>
+
+<!-- LISTA DE PEDIDOS -->
+<div class="card">
+<h2 data-i18n="withdraw_requests">Pedidos de Levantamento</h2>
+<div id="listaPedidos"></div>
+</div>
+
+<!-- HISTÓRICO -->
+<div class="card">
+<h2 data-i18n="history">Histórico de Ganhos</h2>
+<div id="historico"></div>
+<button class="btn" onclick="exportarCSV()" data-i18n="export_csv">
+            Exportar CSV
+</button>
+</div>
+
+<script>
+        // PROTEÇÃO DO PAINEL
+        const KEY = "24865";
+        const url = new URLSearchParams(window.location.search);
+        if (url.get("key") !== KEY) {
+            alert("Acesso negado!");
+            window.location.href = "index.html";
+        }
+
+        // CARREGAR SALDO E ATUALIZAR
+        function atualizarSaldo() {
+            const saldo = Number(localStorage.getItem("saldoTotal") || 0);
+            document.getElementById("saldoTotal").innerText = saldo.toFixed(2);
+
+            const moeda = document.getElementById("currencySelect").value;
+            const taxas = { USD: 1, MZN: 63, ZAR: 18, BRL: 5, GBP: 0.78 };
+
+            const convertido = saldo * taxas[moeda];
+            document.getElementById("valorConvertido").innerText =
+                convertido.toFixed(2) + "" + moeda;
+        }
+
+        // ATUALIZA QUANDO SELECIONA OUTRA MOEDA
+        document.getElementById("currencySelect").addEventListener("change", atualizarSaldo);
+
+        atualizarSaldo();
+</script>
+
+</body>
+</html>

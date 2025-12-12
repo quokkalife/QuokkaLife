@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<title>QuokkaLife - Login do Administrador</title>
+
+<link rel="stylesheet" href="assets/css/style.css">
+<script src="assets/js/idiomas.js" defer></script>
+</head>
+
+<body>
+
+<!-- BOTÃO DE IDIOMA -->
+<div class="lang-switch">
+<button onclick="setLang('pt')">Português</button> |
+<button onclick="setLang('en')">English</button>
+</div>
+
+<div class="admin-login-container">
+
+<h2 data-i18n="admin_login_title">Área do Administrador</h2>
+
+<p data-i18n="admin_login_desc">
+            Insira o código secreto para aceder ao painel.
+</p>
+
+<input type="password" id="adminCode" placeholder="Código de acesso">
+
+<button onclick="entrarPainel()" data-i18n="admin_login_button">
+            Entrar
+</button>
+
+<p id="erro" class="erro"></p>
+</div>
+
+<script>
+        const CODIGO_ADMIN = "24865";
+
+        function entrarPainel() {
+            const code = document.getElementById("adminCode").value;
+
+            if (code === CODIGO_ADMIN) {
+                window.location.href = "painel_admin.html?key=24865";
+            } else {
+                document.getElementById("erro").innerText =
+                    localStorage.getItem("qlang") === "en"
+                    ? "Incorrect code."
+                    : "Código incorreto.";
+            }
+        }
+</script>
+
+</body>
+</html>
