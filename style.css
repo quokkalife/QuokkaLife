@@ -1,0 +1,67 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: #f2f2f2;
+}
+
+/* TOPO VERDE */
+.topo {
+  background: #1fa463;
+  color: white;
+  padding: 10px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.topo input {
+  flex: 1;
+  padding: 6px;
+}
+
+.menu {
+  display: flex;
+  overflow-x: auto;
+  background: #ffffff;
+  padding: 10px;
+}
+
+.menu a {
+  margin-right: 15px;
+  text-decoration: none;
+  color: #333;
+}
+
+.feed {
+  padding: 10px;
+}
+
+.card {
+  background: white;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+iframe {
+  width: 100%;
+  height: 300px;
+  border: none;
+}
+
+.acoes {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+}
+
+footer {
+  text-align: center;
+  padding: 10px;
+  background: #ddd;
+}

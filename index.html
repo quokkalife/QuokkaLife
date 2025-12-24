@@ -1,52 +1,64 @@
-<!DOCTYPE html>
-<html lang="pt">
-<head>
-<meta charset="UTF-8">
-<title>QuokkaLife - Página Inicial</title>
-<link rel="stylesheet" href="assets/css/style.css">
+<!-- ================= ADMIN UPLOAD (APENAS ADMIN) ================= -->
+<div class="admin-upload">
+<h2 style="color:#1aff1a;">Área do Administrador</h2>
 
-<!-- SCRIPT DE IDIOMAS -->
-<script src="assets/js/idiomas.js" defer></script>
-</head>
+<p>Carregar vídeo da galeria / computador</p>
 
-<body>
+<input type="file" id="videoInput" accept="video/*">
 
-<!-- BOTÃO DE IDIOMA -->
-<div class="lang-switch">
-<button onclick="setLang('pt')">Português</button> |
-<button onclick="setLang('en')">English</button>
+<button onclick="uploadVideo()" style="
+        padding:10px;
+        margin-top:10px;
+        background:#1aff1a;
+        border:none;
+        border-radius:8px;
+        cursor:pointer;
+        font-weight:bold;">
+        Enviar Vídeo
+</button>
 </div>
 
-<!-- CABEÇALHO -->
-<header>
-<h1 data-i18n="home_title">Bem-vindo ao QuokkaLife</h1>
+<script>
+function uploadVideo(){
+    const file = document.getElementById("videoInput").files[0];
 
-<nav>
-<a href="index.html" data-i18n="menu_home">Início</a>
-<a href="video.html" data-i18n="menu_videos">Vídeos</a>
-<a href="#" data-i18n="menu_downloads">Downloads</a>
-<a href="#" data-i18n="menu_conteudos">Conteúdos</a>
-<a href="admin.html" class="admin-link" data-i18n="menu_admin">Administrador</a>
-</nav>
-</header>
+    if(!file){
+        alert("Selecione um vídeo primeiro!");
+        return;
+    }
 
-<!-- BARRA DE PESQUISA -->
-<div class="search-box">
-<input type="text" placeholder="Pesquisar..." data-i18n-ph="search_placeholder">
+    const videoURL = URL.createObjectURL(file);
+
+    // Criar card igual ao estilo TikTok
+    const feed = document.querySelector(".feed");
+
+    const card = document.createElement("div");
+    card.className = "card";
+
+    card.innerHTML = `
+<h3>Vídeo do Administrador</h3>
+
+<video controls>
+<source src="${videoURL}" type="${file.type}">
+</video>
+
+<div class="buttons">
+<button class="share" onclick="shareLink('https://quokkalife.com')">
+                Partilhar Link
+</button>
+
+<button class="youtube">
+                Enviar para YouTube
+</button>
+
+<button class="facebook">
+                Enviar para Facebook
+</button>
 </div>
+    `;
 
-<!-- CONTEÚDO PRINCIPAL -->
-<section class="conteudo">
-<h2 data-i18n="section_latest">Últimos conteúdos</h2>
-<p data-i18n="section_desc">
-            Explore vídeos, artigos, downloads e muito mais.
-</p>
-</section>
+    feed.prepend(card); // aparece no topo estilo Facebook / TikTok
 
-<!-- RODAPÉ -->
-<footer>
-<p>&copy; 2025 QuokkaLife. Todos os direitos reservados.</p>
-</footer>
-
-</body>
-</html>
+    alert("Vídeo carregado com sucesso!");
+}
+</script>
